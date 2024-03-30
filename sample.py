@@ -1,9 +1,22 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Mar 27 19:12:12 2024
 
+@author: user
+"""
+
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Dec 22 22:26:23 2023
+
+@author: user
+"""
 import pandas as pd
 
 cycle = 0
 
 # Functions to correct and validate phone numbers
+
 def formatNigeriaPhoneNumber(phone_number):
     # Convert phone_number to string for consistent processing
     phone_str = str(phone_number)
@@ -257,4 +270,78 @@ is_name_present = surname_to_check in data['SURNAME'].values and name_to_check i
 print("HAS MAYOWA REGISTERED?")
 print(str(is_name_present)  + '\n')
 
+'''
+#Code to check for the nuber of registered females and males from all locations except Other locactions outside Asaba for each day
+'''
+# List of fellowship locations 
+fellowship_locations = ["DLCF DOU", "DEEPER LIFE CORPERS' FELLOWSHIP ASABA", 
+                         "DLCF FCE PERMANENT SITE", "DLCF JUNIC", "DLCF PARADISE"]
 
+total_female_count = 0  # Initialize a variable to store the total count
+# Loop through each fellowship location
+for location in fellowship_locations:
+  # Filter data for Tuesday registrations and specific fellowship location
+  filtered_data = data[(data["REGISTRATION DATE"] == "FRI. 29/03/2024") & 
+                        (data["FELLOWSHIP LOCATION"] == location)]
+
+  # Count females from that location
+  female_count = len(filtered_data[filtered_data.SEX == "FEMALE"])
+
+  # Print the result (modify formatting as needed)
+  print(f"Number of females from {location} who registered on Friday (29/03/2024): {female_count}")
+    
+     # Accumulate the female count for the total
+  total_female_count += female_count
+
+# Print the total count
+print(f"Total number of females registered on Friday (29/03/2024) across all fellowships: {total_female_count}\n")
+
+
+
+# List of fellowship locations 
+fellowship_locations = ["DLCF DOU", "DEEPER LIFE CORPERS' FELLOWSHIP ASABA", 
+                         "DLCF FCE PERMANENT SITE", "DLCF JUNIC", "DLCF PARADISE"]
+
+total_male_count = 0  # Initialize a variable to store the total count
+
+
+# Loop through each fellowship location
+for location in fellowship_locations:
+  # Filter data for Tuesday registrations and specific fellowship location
+  filtered_data = data[(data["REGISTRATION DATE"] == "FRI. 29/03/2024") & 
+                        (data["FELLOWSHIP LOCATION"] == location)]
+
+  # Count males from that location
+  male_count = len(filtered_data[filtered_data.SEX == "MALE"])
+
+  # Print the result (modify formatting as needed)
+  print(f"Number of males from {location} who registered on Friday (29/03/2024): {male_count}")
+    
+     # Accumulate the female count for the total
+  total_male_count += male_count
+
+# Print the total count
+print(f"Total number of males registered on Friday (29/03/2024) across all fellowships: {total_male_count}\n")
+
+
+'''
+#Code to check for the nuber of registered females and males from all other locations outside Asaba for each day.
+'''
+fridayData = data[data["REGISTRATION DATE"] == "FRI. 29/03/2024"]
+femaleCountFriday = len(fridayData[fridayData.SEX == "FEMALE"])
+othersCountFriday = len(fridayData[
+    (fridayData.SEX == "FEMALE") & (fridayData["FELLOWSHIP LOCATION"] == "OTHERS")
+])
+
+# Print the result
+print(f"Number of females from outside Campuses who registered on Friday (29/03/2024): {othersCountFriday}\n")
+
+
+fridayData = data[data["REGISTRATION DATE"] == "FRI. 29/03/2024"]
+maleCountFriday = len(fridayData[fridayData.SEX == "MALE"])
+othersCountFriday = len(fridayData[
+    (fridayData.SEX == "MALE") & (fridayData["FELLOWSHIP LOCATION"] == "OTHERS")
+])
+
+# Print the result
+print(f"Number of males from outside Campuses who registered on Friday (29/03/2024): {othersCountFriday}\n")
